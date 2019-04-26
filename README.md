@@ -10,7 +10,8 @@ java进阶知识点扫盲
 ### java多线程技能
 ### 对象及变量的并发访问
 ### 线程间通信
-### Lock的使用
+### ![Lock的使用]()
+- [ReentrantLock类使用]() 
 ## 微服务
 ### spring cloud
 ### dubbo
