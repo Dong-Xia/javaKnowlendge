@@ -98,6 +98,7 @@ where 列名 is null ,或is not null 才可以查询.
 | Enum<—>enum	 | 10.53 |
 | Char<---->char | 24.65 |
 | Enum<---->char | 18.22 |
+
 如果t2表的优势不明显，加大t3的gender列 ，char(15)， char(20)…随着t3 gender列的变大，t2表优势逐渐明显。
 
 原因----无论enum(‘manmaman’,’womanwomanwoman’) 枚举的字符多长，内部都是用整型表示， 在内存中产生的数据大小不变，而char/varchar型，却在内存中产生的数据越来越多。
