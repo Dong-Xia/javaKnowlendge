@@ -114,6 +114,6 @@ where 列名 is null ,或is not null 才可以查询.
 
 原因----无论enum(‘manmaman’,’womanwomanwoman’) 枚举的字符多长，内部都是用整型表示， 在内存中产生的数据大小不变，而char/varchar型，却在内存中产生的数据越来越多。
 
-##### 总结: 
+##### 总结 
   - enum 和enum类型关联速度比较快
   - enum 类型 节省了IO
