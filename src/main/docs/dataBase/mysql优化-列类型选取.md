@@ -5,8 +5,8 @@
     - [类型选取的原则](#类型选取的原则)
         - [列的特点分析](#列的特点分析)
     - [实验](#实验)
-        - [1、字段为空](#1、字段为空)
-        - [2、Enum列的说明](#2、Enum列的说明)
+        - [字段为空](#字段为空)
+        - [Enum列的说明](#Enum列的说明)
         - [总结](#总结)
 <!-- /MarkdownTOC -->
 # mysql优化-列类型选取
@@ -45,7 +45,7 @@ http://www.xaprb.com/blog/2014/01/30/timestamps-in-mysql/
 	原因：NULL不利于索引，要用特殊的字节来标注。
 	在磁盘上占据的空间其实更大。
 ## 实验
-##### 1、字段为空
+##### 字段为空
 描述：可以建立2张字段相同的表，一个允许为null，一个不允许为Null，各加入1万条，查看索引文件的大小，可以发现为null的索引要大些。(mysql5.5里，关于null已经做了优化，大小区别已不明显)
 另外: null也不便于查询,
 where 列名=null;
@@ -73,7 +73,7 @@ where 列名 is null ,或is not null 才可以查询.
     alert table dictnn enable keys;
     alter table dictyn enable keys;
 
-##### 2、Enum列的说明
+##### Enum列的说明
 - enum列在内部是用整型来储存的
 - enum列与enum列相关联速度最快
 - enum列比char/varchar 的弱势—在碰到与char关联时（一个整型和一个字符类型），要转化， 要花时间。
