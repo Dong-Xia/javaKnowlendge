@@ -21,4 +21,6 @@ java进阶知识点扫盲
 ### spring cloud
 ### dubbo
 ## 数据库
+### 数据库优化
+- [mysql优化-列类型选取](/src/main/docs/dataBase/mysql优化-列类型选取.md)
 
