@@ -15,6 +15,8 @@ java进阶知识点扫盲
 - [Lock和Synchronized的区别](/src/main/docs/simultaneous/Lock和synchronized的区别.md)
 - [ReentrantLock类的使用]() 
 - [ReentantReadWriteLock类的使用]()
+### 构建自定义的同步工具
+- [构建锁和同步器的框架：AbstractQueuedSynchronizer（AQS）]()
 ## 微服务
 ### spring cloud
 ### dubbo
