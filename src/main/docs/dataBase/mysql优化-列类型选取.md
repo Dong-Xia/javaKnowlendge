@@ -1,3 +1,6 @@
+<!-- MarkdownTOC -->
+- [1. mysql优化-列类型选取](#mysql优化-列类型选取)
+<!-- /MarkdownTOC -->
 # mysql优化-列类型选取
 
 ## 数据库表字段类型选取规则
