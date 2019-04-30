@@ -1,6 +1,7 @@
 # java知识点
 java进阶知识点扫盲
 ## java基础
+- [动态代理](/src/main/docs/javaBase/动态代理.md)
 ## JVM
 ## 分布式
 - [分布式唯一ID生成方案]()
