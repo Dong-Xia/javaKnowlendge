@@ -297,3 +297,99 @@ AbstractQueuedSynchronizer（AQS）是一个用于构建锁和同步器的框架
            }
        }     
 5. CyclicBarrier栅栏实现为独占方式，底层实现使用了ReentrantLock和Condition两个类
+        
+        （1）定义线程需要获取锁并执行的资源类
+        public class CyclicBarrierTest {
+            private CyclicBarrier cyclicBarrier = new CyclicBarrier(10); // 初始化state大小为线程的数量，10个线程需相互等待，所有线程需全部达到栅栏位置，才能继续执行；闭锁用于等待事件，栅栏用于等待线程。
+        
+            /**
+             * 实现栅栏所有线程互相等待，等所有线程到齐后，再各自执行后面的任务
+             */
+            public void testCyclicBarrier(){
+                CyclicBarrier cyclicBarrier = new CyclicBarrier(10); // 初始化state大小为线程的数量，10个线程需相互等待，所有线程需全部达到栅栏位置，才能继续执行；闭锁用于等待事件，栅栏用于等待线程。
+                for(int i = 1;i <= 10;i++){
+                        ThreadF threadF = new ThreadF(i,cyclicBarrier);
+                        threadF.start();
+                    }
+            }
+        
+            /**
+             * CyclicBarrier的另一个构造函数CyclicBarrier(int parties, Runnable barrierAction)，用于线程到达屏障时，优先执行barrierAction，方便处理更复杂的业务场景。
+             * Runnable barrierAction 参数作用类似于：所有士兵集合完毕后，由兵长来发出“所有士兵集合完成”命令，对所有线程达到栅栏屏障后优先执行一个指定的共同行为方法
+             */
+             public void testCyclicBarrierAction(){
+                CyclicBarrier cyclicBarrier = new CyclicBarrier(10,new BarrierRun(false,10)); // 可以在所有线程到达栅栏屏障后，优先执行一个指定的共同方法，比如：所有士兵集合完毕后，发出“所有士兵集合完成”命令，如果采用CyclicBarrier(int parties)则会出现，有10个士兵则会打印出10次命令。
+                 for(int i = 1;i <= 10;i++){
+                     ThreadF threadF = new ThreadF(i,cyclicBarrier);
+                     threadF.start();
+                 }
+             }
+            public static void main(String[] args) {
+                new CyclicBarrierTest().testCyclicBarrierAction();
+            }
+        }
+        （2）线程类
+        public class ThreadF extends Thread {
+            private CyclicBarrier cyclicBarrier;
+            private int i;
+        
+            public ThreadF(int i,CyclicBarrier cyclicBarrier){
+                this.cyclicBarrier = cyclicBarrier;
+                this.i = i;
+            }
+        
+            @Override
+            public void run() {
+                try {
+                    if (i == 2) {
+                        // 模拟所有士兵等待士兵2
+                        Thread.sleep(10000);
+                        System.out.println("士兵" + i + "报到");
+                    }else {
+                        System.out.println("士兵" + i + "报到");
+                    }
+                    // 等待其他士兵
+                    cyclicBarrier.await();
+                    Thread.sleep(5000);
+                    // 等待所有士兵都报到后，该士兵可以进行自己的下一步动作
+                    if (i == 1) {
+                        System.out.println("士兵" + i + "体能训练");
+                    } else if (i == 2) {
+                        System.out.println("士兵" + i + "射击训练");
+                    } else {
+                        System.out.println("士兵" + i + "格斗训练");
+                    }
+                    // 模拟进行任务花费的时间
+                    Thread.sleep(3000);
+                    System.out.println("士兵" + i + "训练完成，请指示！");
+                    // 等待其他士兵完成训练任务
+                    cyclicBarrier.await(); // 栅栏可以进行重置后重新使用
+                    // System.out.println("所有士兵训练完成，请指示！"); 在这里打印的话，则每个士兵都会打印一次，但是这个命令在现实中应该是兵长来发出
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (BrokenBarrierException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+       （3）线程类，用于初始化CyclicBarrier的另一个带Runnable barrierAction构造函数CyclicBarrier(int parties, Runnable barrierAction)，
+       用于线程到达屏障时，优先执行barrierAction，方便处理更复杂的业务场景；对应（1）中的testCyclicBarrierAction()方法。
+       public class BarrierRun implements Runnable {
+           private boolean flag;
+           private int N;
+       
+           public BarrierRun(boolean flag,int N){
+               this.flag = flag;
+               this.N = N;
+           }
+       
+           @Override
+           public void run() {
+               if(flag){
+                   System.out.println("兵长:[士兵"+N+"个，训练任务完成！]");
+               }else{
+                   System.out.println("兵长:[士兵"+N+"个，集合完毕！]");
+                   flag = true;
+               }
+           }
+       }
