@@ -66,7 +66,10 @@ AbstractQueuedSynchronizer（AQS）是一个用于构建锁和同步器的框架
                       reentrantLockTest.testReentrantLock();
                   }
               }
-2. Semaphore实现为共享方式：Semaphore 是 synchronized 的加强版，作用是控制线程的并发数量；就这一点而言，单纯的synchronized 关键字是实现不了的。具体实现分两步：
+2. Semaphore实现为共享方式：Semaphore 是 synchronized 的加强版，作用是控制线程的并发数量；就这一点而言，单纯的synchronized 关键字是实现不了的。
+初始化state的状态为允许线程并发的数量，表示在同一个时刻，只运行多少个进程同时运行指定的代码。
+
+　　具体实现分两步：
 - Semaphore调用acquire()获取共享锁，底层实现调用tryReleaseShared()以共享的方式释放锁，相应共享状态state+1，
 只要state状态不为0，则其它线程可以获取锁，并获得资源；
 - Semaphore调用release()释放共享锁，底层实现调用tryReleaseShared()以共享的方式释放锁，相应共享状态state+1，
