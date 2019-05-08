@@ -164,6 +164,8 @@ AbstractQueuedSynchronizer（AQS）是一个用于构建锁和同步器的框架
                }
            }
 4. ReentrantReadWriteLock同时实现独占和共享两种方式：主要分为读写互斥、写读互斥、写写互斥和读读共享三种情况。
+- 读锁实现共享原理：底层实现采用tryAcquireShared(int)和tryReleaseShared(int)实现资源共享
+- 写锁实现互斥原理：底层实现采用tryAcquire(int)和tryRelease(int)实现资源独占
 
         代码实现：
        （1）定义线程需要获取锁并执行的资源类
@@ -293,4 +295,5 @@ AbstractQueuedSynchronizer（AQS）是一个用于构建锁和同步器的框架
            public void run() {
                reentrantReadWriteLockTest.testWriteLock();
            }
-       }
+       }     
+5. CyclicBarrier栅栏实现为独占方式，底层实现使用了ReentrantLock和Condition两个类
