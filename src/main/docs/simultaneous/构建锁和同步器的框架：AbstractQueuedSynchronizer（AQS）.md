@@ -296,7 +296,9 @@ AbstractQueuedSynchronizer（AQS）是一个用于构建锁和同步器的框架
                reentrantReadWriteLockTest.testWriteLock();
            }
        }     
-5. CyclicBarrier栅栏实现为独占方式，底层实现使用了ReentrantLock和Condition两个类
+5. CyclicBarrier栅栏实现为独占方式，底层实现使用了ReentrantLock和Condition两个类。
+正如其名，循环的障碍，CyclicBarrier的计数器在执行完一次任务后，可以进行重置，之后可以再次进行使用，
+这是和CountDownLatch计数器的一个重要的区别之一
         
         （1）定义线程需要获取锁并执行的资源类
         public class CyclicBarrierTest {
