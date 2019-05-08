@@ -17,7 +17,7 @@ java进阶知识点扫盲
 - [ReentrantLock类的使用]() 
 - [ReentantReadWriteLock类的使用]()
 ### 构建自定义的同步工具
-- [构建锁和同步器的框架：AbstractQueuedSynchronizer（AQS）]()
+- [构建锁和同步器的框架：AbstractQueuedSynchronizer（AQS）](/src/main/docs/simultaneous/构建锁和同步器的框架：AbstractQueuedSynchronizer（AQS）.md)
 ## 微服务
 ### spring cloud
 ### dubbo
