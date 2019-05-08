@@ -7,9 +7,9 @@ AbstractQueuedSynchronizer（AQS）是一个用于构建锁和同步器的框架
 
 类如其名，抽象的队列式的同步器，它维护了一个volatile int state（代表共享资源）和一个FIFO线程等待队列（多线程争用资源被阻塞时会进入此队列）。这里volatile是核心关键词，volatile作用为保持变量的可见性。state的访问方式有三种:
                 
-    getState()
-    setState()
-    compareAndSetState()
+    （１）getState()
+    （２）setState()
+    （３）compareAndSetState()
 
 　　AQS定义了两种获取资源的方式：Exclusive独占（只有一个线程执行，如ReentrantLock）和Share共享(可以多个线程同时执行，如Semaphore、CountDownLatch)。
 
@@ -67,7 +67,7 @@ AbstractQueuedSynchronizer（AQS）是一个用于构建锁和同步器的框架
                   }
               }
 2. Semaphore实现为共享方式：Semaphore 是 synchronized 的加强版，作用是控制线程的并发数量；就这一点而言，单纯的synchronized 关键字是实现不了的。
-初始化state的状态为允许线程并发的数量，表示在同一个时刻，只运行多少个进程同时运行指定的代码。
+**初始化state的状态为允许线程并发的数量，表示在同一个时刻，只运行多少个进程同时运行指定的代码**。
 
 　　具体实现分两步：
 - Semaphore调用acquire()获取共享锁，底层实现调用tryReleaseShared()以共享的方式释放锁，相应共享状态state+1，
@@ -164,3 +164,133 @@ AbstractQueuedSynchronizer（AQS）是一个用于构建锁和同步器的框架
                }
            }
 4. ReentrantReadWriteLock同时实现独占和共享两种方式：主要分为读写互斥、写读互斥、写写互斥和读读共享三种情况。
+
+        代码实现：
+       （1）定义线程需要获取锁并执行的资源类
+        public class ReentrantReadWriteLockTest {
+            ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
+        
+            /**
+             * 测试读锁
+             */
+            public void testReadLock(){
+                try {
+                    reentrantReadWriteLock.readLock().lock(); // 获取读锁（读锁为共享锁，资源共享），底层实现采用tryAcquireShared(int)其中负数表示失败；0表示成功，但没有剩余可用资源；正数表示成功，且有剩余资源
+                    System.out.println("获取读锁" + Thread.currentThread().getName() + "的时间:" + System.currentTimeMillis());
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                  reentrantReadWriteLock.readLock().unlock(); // 释放读锁（读锁为共享锁，资源共享），底层实现采用tryReleaseShared(int)，如果释放后允许唤醒后续等待结点返回true，否则返回false
+                }
+            }
+        
+            /**
+             * 测试写锁
+             */
+            public void testWriteLock(){
+                try {
+                    reentrantReadWriteLock.writeLock().lock(); // 获取写锁（写锁为互斥锁，资源独占）, 底层实现采用tryAcquire()成功则返回true，失败则返回false。
+                    System.out.println("获取写锁" + Thread.currentThread().getName() + "的时间:" + System.currentTimeMillis());
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    reentrantReadWriteLock.writeLock().unlock(); // 释放写锁，底层调用tryRelease(int)：独占方式。尝试释放资源，成功则返回true，失败则返回false。
+                }
+            }
+        
+            public static void main(String[] args) {
+                ReentrantReadWriteLockTest lock = new ReentrantReadWriteLockTest(); // 定义一个用于synchronized同步加锁的对象监视器（采用同步代码块的原理）
+                ReentrantReadWriteLockTest reentrantReadWriteLockTest = new ReentrantReadWriteLockTest();
+                try {
+                    synchronized (lock) {
+                        // 测试写读互斥和读写互斥，执行有先后
+                        System.out.println("---------测试读写互斥和写读互斥：开始----------------");
+                        testReadAndWriteLock(reentrantReadWriteLockTest);
+                        Thread.sleep(10000);
+                    }
+                    synchronized (lock) {
+                        // 测试写写互斥，执行有先后
+                        System.out.println("---------测试写写互斥：开始----------------");
+                        testWriteAndWriteLock(reentrantReadWriteLockTest);
+                        Thread.sleep(10000);
+                    }
+        
+                    synchronized (lock) {
+                        // 测试读读共享，几乎是两个线程同时执行
+                        System.out.println("---------测试读读共享：开始----------------");
+                        testReadAndReadLock(reentrantReadWriteLockTest);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        
+            /**
+             * 测试读读共享
+             * @param reentrantReadWriteLockTest
+             */
+            private static void testReadAndReadLock(ReentrantReadWriteLockTest reentrantReadWriteLockTest) {
+                ThreadD d = new ThreadD(reentrantReadWriteLockTest);
+                d.setName("A");
+                ThreadD e = new ThreadD(reentrantReadWriteLockTest);
+                e.setName("B");
+                e.start();
+                d.start();
+            }
+        
+            /**
+             * 测试写写互斥
+             * @param reentrantReadWriteLockTest
+             */
+            private static void testWriteAndWriteLock(ReentrantReadWriteLockTest reentrantReadWriteLockTest) {
+                ThreadE d = new ThreadE(reentrantReadWriteLockTest);
+                d.setName("A");
+                ThreadE e = new ThreadE(reentrantReadWriteLockTest);
+                e.setName("B");
+                e.start();
+                d.start();
+            }
+        
+            /**
+             * 测试写读互斥和读写互斥
+             * @param reentrantReadWriteLockTest
+             */
+            private static void testReadAndWriteLock(ReentrantReadWriteLockTest reentrantReadWriteLockTest) {
+                ThreadD d = new ThreadD(reentrantReadWriteLockTest);
+                d.setName("A");
+                ThreadE e = new ThreadE(reentrantReadWriteLockTest);
+                e.setName("B");
+                e.start();
+                d.start();
+            }
+        }
+       （2）、定义线程类
+       读线程：
+       public class ThreadD extends Thread {
+           private ReentrantReadWriteLockTest reentrantReadWriteLockTest;
+       
+           public ThreadD(ReentrantReadWriteLockTest reentrantReadWriteLockTest){
+               this.reentrantReadWriteLockTest = reentrantReadWriteLockTest;
+           }
+       
+           @Override
+           public void run() {
+               reentrantReadWriteLockTest.testReadLock();
+           }
+       }
+       
+       写线程：
+       public class ThreadE extends Thread {
+           private ReentrantReadWriteLockTest reentrantReadWriteLockTest;
+       
+           public ThreadE(ReentrantReadWriteLockTest reentrantReadWriteLockTest){
+               this.reentrantReadWriteLockTest = reentrantReadWriteLockTest;
+           }
+       
+           @Override
+           public void run() {
+               reentrantReadWriteLockTest.testWriteLock();
+           }
+       }
