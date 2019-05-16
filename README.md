@@ -6,6 +6,7 @@ java进阶知识点扫盲
 ## 分布式
 - [分布式唯一ID生成方案]()
 - [分布式事务解决方案](/src/main/docs/distributed/分布式事务解决方案.md)
+- [分布式锁](/src/main/docs/distributed/分布式锁.md)
 
 ## java多线程
 ### java多线程技能
