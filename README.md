@@ -1,7 +1,7 @@
 # java知识点
 java进阶知识点扫盲
 ## java进阶路线
-- [java学习路线整理]/src/main/docs/java进阶路线.md)  
+- [java学习路线整理](/src/main/docs/java进阶路线.md)  
 ## java基础
 - [动态代理](/src/main/docs/javaBase/动态代理.md)
 ## JVM
