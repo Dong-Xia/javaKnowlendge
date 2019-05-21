@@ -26,3 +26,6 @@
 　　程序员的战斗，往往不是一个人的战斗，我们如何在一个平台下高效的去重，进行代码review，对功能进行调整、debug，做到在统一的规划下步步为营，混乱的堆代码的过程中找到自己的记录。这一切都依赖于有效的工具，Git、Maven和jenkins。
 
 ![](/src/main/images/learnLine/line5.jpg)
+
+### java学习路线脑图
+- [java学习路线脑图](http://naotu.baidu.com/file/53cdfa92e61c14ecb51f1de055928f34)
