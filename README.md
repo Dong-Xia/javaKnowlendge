@@ -1,5 +1,7 @@
 # java知识点
 java进阶知识点扫盲
+## java进阶路线图
+- [java路线图](http://naotu.baidu.com/file/53cdfa92e61c14ecb51f1de055928f34) 
 ## java基础
 - [动态代理](/src/main/docs/javaBase/动态代理.md)
 ## JVM
