@@ -5,6 +5,7 @@ java进阶知识点扫盲
 ## java基础
 - [动态代理](/src/main/docs/javaBase/动态代理.md)
 ## JVM
+- [Java虚拟机运行时数据区域详解](/src/main/docs/jvm/Java虚拟机运行时数据区域详解.md)
 ## 分布式
 - [分布式唯一ID生成方案]()
 - [分布式事务解决方案](/src/main/docs/distributed/分布式事务解决方案.md)
