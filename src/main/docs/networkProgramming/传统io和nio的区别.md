@@ -74,17 +74,17 @@
 ### 特点
 　　使用方法对比如下表所示：
 
-  NIO | IO 
+  | NIO | IO | 
   
-  :-: | :-:
+  | :----: | :----: |
   
-  ServerSocketChannel |	ServerSocket
+  | ServerSocketChannel | ServerSocket |
     
-  SocketChannel	| Socket
+  | SocketChannel | Socket |
     
-  Selector |
+  | Selector |
     
-  SelectionKey |
+  | SelectionKey |
  
 　　NIO核心采用多路复用，其在单线程下可以有多个客服端进行连接，如下图所示，当客户端连接到达
 selector选择器后，可以安排空闲的服务员对客户进行服务，当该服务员服务完成后，又可以对其它客户提供服务。
