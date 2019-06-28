@@ -84,14 +84,25 @@ xshell，在windows宿主机中，去连接virtual box中的虚拟机
     yum install wget
     
 # 2. 在每个CentOS中都安装Java和Perl
-yum install -y gcc
-
-wget http://www.cpan.org/src/5.0/perl-5.16.1.tar.gz
-tar -xzf perl-5.16.1.tar.gz
-cd perl-5.16.1
-./Configure -des -Dprefix=/usr/local/perl
-make && make test && make install
-perl -v
+## 2.1 安装jdk
+    解压jdk
+    tar -zxvf jdk-8u151-linux-x64.tar.gz
+    
+    配置环境变量
+    vi /etc/profile
+    #在该文件中导入环境变量，其中HOME为jdk解压根目录
+    export JAVA_HOME=/home/ncut/jdk1.8.0_151
+    export PATH=$JAVA_HOME/bin:$PATH
+    export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+## 2.2 安装perl
+    yum install -y gcc
+    
+    wget http://www.cpan.org/src/5.0/perl-5.16.1.tar.gz
+    tar -xzf perl-5.16.1.tar.gz
+    cd perl-5.16.1
+    ./Configure -des -Dprefix=/usr/local/perl
+    make && make test && make install
+    perl -v
 
 为什么要装perl？我们整个大型电商网站的详情页系统，复杂。java+nginx+lua，需要perl。
 
