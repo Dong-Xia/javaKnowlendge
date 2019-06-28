@@ -172,6 +172,8 @@ perl，是一个基础的编程语言的安装，tomcat，跑java web应用
     
     
     scp authorized_keys ncut-cache02:/root/.ssh
+    
     scp authorized_keys ncut-cache03:/root/.ssh
+    
     scp authorized_keys ncut-cache04:/root/.ssh
 
