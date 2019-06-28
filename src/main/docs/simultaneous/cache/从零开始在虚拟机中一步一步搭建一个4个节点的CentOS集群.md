@@ -4,6 +4,8 @@
     - [1.1 软件](#11-软件)
     - [1.2 具体步骤](#12-具体步骤)
 - [2. 在每个CentOS中都安装Java和Perl](#2-在每个CentOS中都安装Java和Perl)
+    - [2.1 安装jdk](#21-安装jdk)
+    - [2.2 安装perl](#22-安装perl)
 - [3. 在4个虚拟机中安装CentOS集群](#3-在4个虚拟机中安装CentOS集群)
 - [4. 配置4台CentOS为ssh免密码互相通信](#4-配置4台CentOS为ssh免密码互相通信)
 <!-- /MarkdownTOC -->
