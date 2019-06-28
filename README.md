@@ -32,4 +32,5 @@ java进阶知识点扫盲
 ### 数据库优化
 - [mysql优化-列类型选取](/src/main/docs/dataBase/mysql优化-列类型选取.md)
 - [一条SQL语句执行得很慢的原因有哪些?](/src/main/docs/dataBase/一条SQL语句执行得很慢的原因有哪些.md)
-
+## 数据库基础
+- [数据库的隔离级别](/src/main/docs/dataBase/mysql隔离级别.md)
