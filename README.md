@@ -25,6 +25,8 @@ java进阶知识点扫盲
 - [ReentantReadWriteLock类的使用]()
 ### 构建自定义的同步工具
 - [构建锁和同步器的框架：AbstractQueuedSynchronizer（AQS）](/src/main/docs/simultaneous/构建锁和同步器的框架：AbstractQueuedSynchronizer（AQS）.md)
+### 高并发大型电商高性能与高可用缓存架构
+- [从零开始在虚拟机中一步一步搭建一个4个节点的CentOS集群]((/src/main/docs/simultaneous/cache/从零开始在虚拟机中一步一步搭建一个4个节点的CentOS集群.md)
 ## 微服务
 ### spring cloud
 ### dubbo
