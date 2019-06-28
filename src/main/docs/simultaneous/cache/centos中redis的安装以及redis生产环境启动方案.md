@@ -2,7 +2,7 @@
 <!-- MarkdownTOC -->
 - [1. 安装单机版redis](#1-安装单机版redis)
 - [2. redis的生产环境启动方案](#2-redis的生产环境启动方案)
-- [3. redis cli的使用](#3-redis cli的使用)
+- [3. redis_cli的使用](#3-redis_cli的使用)
 <!-- /MarkdownTOC -->
 
 # 1. 安装单机版redis
@@ -53,7 +53,7 @@
     chkconfig redis_6379 on
 
 
-# 3. redis cli的使用
+# 3. redis_cli的使用
 
     (1)redis-cli SHUTDOWN，连接本机的6379端口停止redis进程
     
