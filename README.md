@@ -27,6 +27,7 @@ java进阶知识点扫盲
 - [构建锁和同步器的框架：AbstractQueuedSynchronizer（AQS）](/src/main/docs/simultaneous/构建锁和同步器的框架：AbstractQueuedSynchronizer（AQS）.md)
 ### 高并发大型电商高性能与高可用缓存架构
 - [从零开始在虚拟机中一步一步搭建一个4个节点的CentOS集群](/src/main/docs/simultaneous/cache/从零开始在虚拟机中一步一步搭建一个4个节点的CentOS集群.md)
+- [centos中redis的安装以及redis生产环境启动方案](/src/main/docs/simultaneous/cache/centos中redis的安装以及redis生产环境启动方案.md)
 ## 微服务
 ### spring cloud
 ### dubbo
