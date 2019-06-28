@@ -17,7 +17,7 @@
     cd redis-4.0.1
     make && make test && make install
  
-# 2、redis的生产环境启动方案
+# 2. redis的生产环境启动方案
 
 如果一般的学习课程，你就随便用redis-server启动一下redis，做一些实验，这样的话，没什么意义
 
@@ -53,7 +53,7 @@
     chkconfig redis_6379 on
 
 
-# 3、redis cli的使用
+# 3. redis cli的使用
 
     (1)redis-cli SHUTDOWN，连接本机的6379端口停止redis进程
     
