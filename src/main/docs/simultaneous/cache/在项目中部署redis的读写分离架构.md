@@ -1,11 +1,13 @@
-# centos中单机版redis的安装以及redis生产环境启动方案
+# 在项目中部署redis的读写分离架构（包含节点间认证口令）
 <!-- MarkdownTOC -->
-- [1. 安装单机版redis](#1-安装单机版redis)
-- [2. redis的生产环境启动方案](#2-redis的生产环境启动方案)
-- [3. redis-cli的使用](#3-redis-cli的使用)
+- [1. 部署redis从节点slaveNode](#1-部署redis从节点slaveNode)
+- [2. redis从节点的生产环境启动方案](#2-redis的生产环境启动方案)
+- [3. 强制读写分离](#3-强制读写分离)
+- [4. 集群安全认证](#4-集群安全认证)
+- [5. 读写分离架构的测试](#5-读写分离架构的测试)
+- [6. 操作指令](#4-操作指令)
 <!-- /MarkdownTOC -->
-
-# 1. 安装单机版redis
+# 1. 部署redis从节点slaveNode
     wget http://downloads.sourceforge.net/tcl/tcl8.6.1-src.tar.gz
     tar -xzvf tcl8.6.1-src.tar.gz
     cd  /usr/local/tcl8.6.1/unix/
@@ -16,7 +18,7 @@
     tar -zxvf redis-redis-4.0.11.tar.gz
     cd redis-4.0.1
     make && make test && make install
- 
+
 # 2. redis的生产环境启动方案
 
 如果一般的学习课程，你就随便用redis-server启动一下redis，做一些实验，这样的话，没什么意义
@@ -49,27 +51,48 @@
         # chkconfig:   2345 90 10
 
         # description:  Redis is a persistent key-value database
-
+     
+     #使配置生效
         chkconfig redis_6379 on
 
+在slave node上6379.conf配置：slaveof 主机ip 主机端口 如：192.168.1.1 6379
 
-# 3. redis-cli的使用
+# 3. 强制读写分离
 
-    (1)redis-cli SHUTDOWN，连接本机的6379端口停止redis进程
+基于主从复制架构，实现读写分离
+
+redis slave node只读，默认开启，
+
+    #修改6379.conf配置文件中从节点只允许读操作
+    slave-read-only yes
+
+开启了只读的redis slave node，会拒绝所有的写操作，这样可以强制搭建成读写分离的架构
+
+# 4. 集群安全认证
+
+- master主节点上启用安全认证，在6379.conf文件中配置：requirepass 从节点密码
+- slave从节点连接口令，在6379.conf文件中配置： masterauth 密码
+
+# 5. 读写分离架构的测试
+
+先启动主节点，eshop-cache01上的redis实例
+再启动从节点，eshop-cache02上的redis实例
+
+刚才调试了一下，redis slave node一直说没法连接到主节点的6379的端口
+
+**在搭建生产环境的集群的时候，不要忘记修改一个配置bind，bind 127.0.0.1 -> 本地的开发调试的模式，就只能127.0.0.1本地才能访问到6379的端口。**
+
+    #修改绑定的ip，配置redis所有的主节点和从节点
+    redis.conf中的bind 127.0.0.1 -> bind主机的ip地址
+    #开启6379端口
+    在每个节点上都: iptables -A INPUT -ptcp --dport  6379 -j ACCEPT
+
+# 6. 操作指令
+    #连接redis
+    redis-cli -h ipaddr -a 密码
     
-    (2)redis-cli -h 127.0.0.1 -p 6379 SHUTDOWN，制定要连接的ip和端口号
+    # 看配置的主从节点信息
+    info replication
     
-    (3)redis-cli PING，ping redis的端口，看是否正常
-    
-    (4)redis-cli，进入交互式命令行
-    SET k1 v1
-    GET k1
-
-redis的技术，包括4块
-
-- redis各种数据结构和命令的使用，包括java api的使用
-- redis一些特殊的解决方案的使用，pub/sub消息系统，分布式锁，输入的自动完成，等等
-- redis日常的管理相关的命令
-- redis企业级的集群部署和架构
-
-redis持久化、主从架构、复制原理、集群架构、数据分布式存储原理、哨兵原理、高可用架构
+    #关闭redis
+    redis-cli shutdown
