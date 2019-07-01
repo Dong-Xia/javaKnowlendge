@@ -5,7 +5,7 @@
 - [3. 强制读写分离](#3-强制读写分离)
 - [4. 集群安全认证](#4-集群安全认证)
 - [5. 读写分离架构的测试](#5-读写分离架构的测试)
-- [6. 操作指令](#4-操作指令)
+- [6. 操作指令](#6-操作指令)
 <!-- /MarkdownTOC -->
 # 1. 部署redis从节点slaveNode
     wget http://downloads.sourceforge.net/tcl/tcl8.6.1-src.tar.gz
