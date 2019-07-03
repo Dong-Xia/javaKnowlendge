@@ -70,8 +70,8 @@ redis slave node只读，默认开启，
 
 # 4. 集群安全认证
 
-- master主节点上启用安全认证，在6379.conf文件中配置：requirepass 从节点密码
-- slave从节点连接口令，在6379.conf文件中配置： masterauth 密码
+- master主节点上启用安全认证，在6379.conf文件中配置：requirepass 密码
+- slave从节点连接口令，在6379.conf文件中配置： masterauth 主节点密码
 
 # 5. 读写分离架构的测试
 
