@@ -29,6 +29,7 @@ java进阶知识点扫盲
 - [从零开始在虚拟机中一步一步搭建一个4个节点的CentOS集群](/src/main/docs/simultaneous/cache/从零开始在虚拟机中一步一步搭建一个4个节点的CentOS集群.md)
 - [centos中redis的安装以及redis生产环境启动方案](/src/main/docs/simultaneous/cache/centos中redis的安装以及redis生产环境启动方案.md)
 - [在项目中配置redis的读写分离架构](/src/main/docs/simultaneous/cache/在项目中部署redis的读写分离架构.md)
+- [哨兵sentinel配置文件解读和在虚拟机中3台主机上搭建3个节点的哨兵集群](/src/main/docs/simultaneous/cache/哨兵sentinel配置文件解读和在虚拟机中3台主机上搭建3个节点的哨兵集群.md)
 ## 微服务
 ### spring cloud
 ### dubbo
