@@ -35,7 +35,8 @@
 2. 配置参数解读
 - 这是最小的哨兵配置，如果发生了master-slave故障转移，或者新的哨兵进程加入哨兵集群，那么哨兵会自动更新自己的配置文件
 
-            sentinel monitor master-group-name hostname port quorum (如：sentinel monitor mymaster 127.0.0.1 6379)
+          
+        sentinel monitor master-group-name hostname port quorum (如：sentinel monitor mymaster 127.0.0.1 6379)
     
         quorum的解释如下：
         
