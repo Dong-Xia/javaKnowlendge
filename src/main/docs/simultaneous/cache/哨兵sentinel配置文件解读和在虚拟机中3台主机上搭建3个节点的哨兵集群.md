@@ -14,17 +14,17 @@
 相同的一套哨兵集群，就可以去监控不同的多个redis主从集群。
 你自己给每个redis主从集群分配一个逻辑的名称
 
-    # 给redis集群分配一个名称 mymaster,设置不同的名称可以监控多个redis主从集群
-    sentinel monitor mymaster 127.0.0.1 6379 2
-    sentinel down-after-milliseconds mymaster 60000
-    sentinel failover-timeout mymaster 180000
-    sentinel parallel-syncs mymaster 1
+        # 给redis集群分配一个名称 mymaster,设置不同的名称可以监控多个redis主从集群
+        sentinel monitor mymaster 127.0.0.1 6379 2
+        sentinel down-after-milliseconds mymaster 60000
+        sentinel failover-timeout mymaster 180000
+        sentinel parallel-syncs mymaster 1
 
-    # 给redis集群分配一个名称 resque
-    sentinel monitor resque 192.168.1.3 6380 4
-    sentinel down-after-milliseconds resque 10000
-    sentinel failover-timeout resque 180000
-    sentinel parallel-syncs resque 5
+        # 给redis集群分配一个名称 resque
+        sentinel monitor resque 192.168.1.3 6380 4
+        sentinel down-after-milliseconds resque 10000
+        sentinel failover-timeout resque 180000
+        sentinel parallel-syncs resque 5
 
 上面这段配置，就监控了两个master node
 
@@ -35,7 +35,7 @@
 2. 配置参数解读
 - 这是最小的哨兵配置，如果发生了master-slave故障转移，或者新的哨兵进程加入哨兵集群，那么哨兵会自动更新自己的配置文件
 
-        sentinel monitor master-group-name hostname port quorum (如：sentinel monitor mymaster 127.0.0.1 6379)
+            sentinel monitor master-group-name hostname port quorum (如：sentinel monitor mymaster 127.0.0.1 6379)
     
         quorum的解释如下：
         
