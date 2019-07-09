@@ -92,7 +92,7 @@ redis cluster集群，要求至少3个master，去组成一个高可用，健壮
     redis-trib.rb check 10.4.9.20:7001
 ## 3.1 系统默认ruby版本过低，导致Redis接口安装失败
    在执行gem install redis安装redis接口时，提示ruby版本过低问题，如图：
-   ![安装ruby版本过低](/src/images/redis/安装ruby版本过低.jpg)
+   ![安装ruby版本过低](/src/main/images/redis/安装ruby版本过低.jpg)
 
 解决步骤：   
    (1) 查看系统默认当前 ruby 版本，输入命令 " ruby -v "；
