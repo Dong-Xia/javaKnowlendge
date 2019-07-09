@@ -3,7 +3,7 @@
 - [1. redis-cluster基本知识](#1-redis-cluster基本知识)
 - [2. 在三台机器上准备6个redis实例](#2-在三台机器上准备6个redis实例)
 - [3. 建立集群](#3-建立集群)
-    -[3.1 系统默认ruby版本过低，导致Redis接口安装失败](#31-系统默认ruby版本过低，导致Redis接口安装失败)
+    - [3.1 系统默认ruby版本过低，导致Redis接口安装失败](#31-系统默认ruby版本过低，导致Redis接口安装失败)
 - [4. redis-cluster进行水平扩容](#4-redis-cluster进行水平扩容)
 <!-- /MarkdownTOC -->
 # 1. redis-cluster基本知识
