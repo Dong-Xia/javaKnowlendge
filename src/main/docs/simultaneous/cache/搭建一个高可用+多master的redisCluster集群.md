@@ -3,6 +3,7 @@
 - [1. redis-cluster基本知识](#1-redis-cluster基本知识)
 - [2. 在三台机器上准备6个redis实例](#2-在三台机器上准备6个redis实例)
 - [3. 建立集群](#3-建立集群)
+    -[3.1 系统默认ruby版本过低，导致Redis接口安装失败](#31-系统默认ruby版本过低，导致Redis接口安装失败)
 - [4. redis-cluster进行水平扩容](#4-redis-cluster进行水平扩容)
 <!-- /MarkdownTOC -->
 # 1. redis-cluster基本知识
@@ -89,7 +90,38 @@ redis cluster集群，要求至少3个master，去组成一个高可用，健壮
 (4) 查看建立好的集群状态：
     
     redis-trib.rb check 10.4.9.20:7001
+## 3.1 系统默认ruby版本过低，导致Redis接口安装失败
+   在执行gem install redis安装redis接口时，提示ruby版本过低问题，如图：
+   ![安装ruby版本过低](/src/main/images/redis/安装ruby版本过低.jpg)
 
+解决步骤：   
+   (1) 查看系统默认当前 ruby 版本，输入命令 " ruby -v "；
+   
+   (2) RVM需要通过CRUL来进行下载，那么我们要先下载CUEL，CURL是什么呢，它是Linux下的文件传输工具，利用URL的规则在命令行下工作，
+        
+        输入命令 " yum install curl " 进行安装;
+  
+   (3) 使用curl安装rvm ，
+   
+        输入命令 " curl -L get.rvm.io | bash -s stable " 进行安装
+        
+        # 提示无法检查签名：没有公钥，运行下面命令
+        gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+        curl -L get.rvm.io | bash -s stable
+        
+   (4) 使用source让当前shell读入路径为" /usr/local/rvm/scripts/rvm "（路径可以自定义）的shell文件并依次执行文件中的所有语句，并重新执行刚修改的初始化文件，使之立即生效，而不必注销并重新登录，
+   
+   (5) 输入命令 " rvm list known " 进行查询ruby版本
+   
+   (6) 选择一个你喜欢的版本进行安装，但首先提醒一下，你所选择的版本不能低于提示要求的版本就可以了，输入命令 " rvm install 2.4.6 " 进行安装
+   
+   (7) 使用刚才安装完成的Ruby版本，输入命令 " rvm use 2.4.6 " 
+  
+   (8) 移除系统中默认的版本号，输入命令 " rvm remove 2.0.0 " 进行移除
+   
+   (9) 输入命令 " ruby -v "查看是否成功 
+
+   
 ## 4. redis-cluster进行水平扩容
 redis cluster模式下，不建议做物理的读写分离了。这个和哨兵模式下的一主多从的读写分离不一样。
 
