@@ -32,7 +32,7 @@ java进阶知识点扫盲
 - [在项目中配置redis的读写分离架构](/src/main/docs/simultaneous/cache/在项目中部署redis的读写分离架构.md)
 - [哨兵sentinel配置文件解读和在虚拟机中3台主机上搭建3个节点的哨兵集群](/src/main/docs/simultaneous/cache/哨兵sentinel配置文件解读和在虚拟机中3台主机上搭建3个节点的哨兵集群.md)
 - [redis缓存架构的选型思路](/src/main/docs/simultaneous/cache/redis缓存架构的选型思路.md)
-- [搭建一个高可用+多master的redis-cluster集群](/src/main/docs/simultaneous/cache/搭建一个高可用+多master的redis-cluster集群.md)
+- [搭建一个高可用+多master的redis cluster集群](/src/main/docs/simultaneous/cache/搭建一个高可用+多master的redis-cluster集群.md)
 ## 微服务
 ### spring cloud
 ### dubbo
