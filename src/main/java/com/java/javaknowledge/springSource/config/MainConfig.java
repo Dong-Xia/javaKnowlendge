@@ -8,8 +8,8 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
-// 配置类的效果  和  xml 是同样的功效
-@Configuration    // 注明该类为配置类,告诉spring这是一个配置类
+// 配置类的效果  和  xml 是同样的功效; 注明该类为配置类,告诉spring这是一个配置类
+@Configuration
 @ComponentScan(value = "com.java.javaknowledge.springSource",excludeFilters = {
         @ComponentScan.Filter(type = FilterType.ANNOTATION,classes = {Controller.class,Service.class})
 })      // ComponentScan ：配置需要扫描的包
