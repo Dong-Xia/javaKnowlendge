@@ -1,5 +1,7 @@
 package com.java.javaknowledge.springSource.bean;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * <b>System：</b>ncc<br/>
  * <b>Title：</b>Dog<br/>
@@ -10,7 +12,18 @@ package com.java.javaknowledge.springSource.bean;
  * <b>Copyright (c) 2019 ASPire Tech.</b>
  */
 public class Dog {
+
+    //1、直接命名
+    @Value("旺财")
     private String name;
+
+    //2、表达式
+    @Value("#{10-2}")
+    private Integer age;
+
+    //3、读入配置外部配置文件
+    @Value("${dog.nickname}")
+    private String nickname;
 
     public Dog(){
         System.out.println("Dog......construct......");
@@ -22,5 +35,14 @@ public class Dog {
 
     public void destroy() {
         System.out.println("Dog......destroy......");
+    }
+
+    @Override
+    public String toString() {
+        return "Dog{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", nickname='" + nickname + '\'' +
+                '}';
     }
 }
