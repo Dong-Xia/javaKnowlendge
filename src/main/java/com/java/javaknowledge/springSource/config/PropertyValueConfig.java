@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 /**
  * <b>System：</b>ncc<br/>
  * <b>Title：</b>PropertyValueConfig<br/>
- * <b>Description：@Value注解的使用： 给成员属性赋值,在具体的类中的成员属性上使用注解实现
+ * <b>Description：@Value注解的使用： 给成员属性赋值,在具体的类中的成员属性上使用注解实现，值不会变
  * <b>@author： </b>xiadong<br/>
  * <b>@date：</b>2019/8/3 15:23<br/>
  */
