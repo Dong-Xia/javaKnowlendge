@@ -89,7 +89,7 @@ redis slave node只读，默认开启，
 
 # 6. 操作指令
     #连接redis
-    redis-cli -h ipaddr -a 密码
+    redis-cli -h ipaddr -p port -a 密码
     
     # 看配置的主从节点信息
     info replication
