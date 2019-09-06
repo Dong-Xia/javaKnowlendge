@@ -5,7 +5,7 @@
 - [3. 建立集群](#3-建立集群)
     - [3.1 系统默认ruby版本过低导致Redis接口安装失败](#31-系统默认ruby版本过低导致Redis接口安装失败)
 - [4. redis-cluster进行水平扩容](#4-redis-cluster进行水平扩容)
-- [5. redis-cluster集群问题记录](#4-redis-cluster集群问题记录)
+- [5. redis-cluster集群问题记录](#5-redis-cluster集群问题记录)
 <!-- /MarkdownTOC -->
 # 1. redis-cluster基本知识
 ### redis cluster: **自动完成master+slave复制和读写分离，master+slave高可用和主备切换**，支持多个master的hash slot支持数据分布式存储。
@@ -213,4 +213,4 @@ How many slots do you want to move (from 1 to 16384)?
 　　原因：由于上次redis集群没有配置成功，生成了每个节点的配置文件和db的备份文件，所以才会产生这个错误。
 　　处理办法：删除每个redis节点的备份文件，数据库文件和集群配置文件；处理后重启redis，并重新运行redis-trib.rb建立集群
   
-    比如说我有7001~7006    6个节点，那么每个节点中的appendonly.aof、dump.rdb、node_xxx.conf文件都要被删除
+    比如有7001~7006共6个节点，那么每个节点中的appendonly.aof、dump.rdb、node_xxx.conf文件都要被删除
