@@ -5,6 +5,7 @@
 - [3. 建立集群](#3-建立集群)
     - [3.1 系统默认ruby版本过低导致Redis接口安装失败](#31-系统默认ruby版本过低导致Redis接口安装失败)
 - [4. redis-cluster进行水平扩容](#4-redis-cluster进行水平扩容)
+- [5. redis-cluster集群问题记录](#4-redis-cluster集群问题记录)
 <!-- /MarkdownTOC -->
 # 1. redis-cluster基本知识
 ### redis cluster: **自动完成master+slave复制和读写分离，master+slave高可用和主备切换**，支持多个master的hash slot支持数据分布式存储。
@@ -203,3 +204,13 @@ How many slots do you want to move (from 1 to 16384)?
 当你清空了一个master的hashslot时，redis cluster就会自动将其slave挂载到其他master上去
 
 这个时候就只要删除掉master就可以了
+
+## 5. redis-cluster集群问题记录
+  使用redis-trib.rb create --replicas 1 10.4.9.20:7001 10.4.9.20:7002 10.4.9.211:7003 10.4.9.211:7004 10.4.9.222:7005 10.4.9.222:7006进行集群时报下面类似的错误：
+  
+     [ERR] Node 192.168.15.102:6000 is not empty. Either the node already knows other nodes (check with CLUSTER NODES) or contains some key in database 0.
+
+　　原因：由于上次redis集群没有配置成功，生成了每个节点的配置文件和db的备份文件，所以才会产生这个错误。
+　　处理办法：删除每个redis节点的备份文件，数据库文件和集群配置文件；处理后重启redis，并重新运行redis-trib.rb建立集群
+  
+    比如说我有7001~7006    6个节点，那么每个节点中的appendonly.aof、dump.rdb、node_xxx.conf文件都要被删除
